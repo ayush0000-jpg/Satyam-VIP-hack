@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDG 3Min</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        h1, h2 {
+            color: #f9605b;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .card {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #dataTable, #predictionHistoryTable {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #666;
+        }
+        th {
+            background-color: #f9605b;
+            color: white;
+            font-weight: bold;
+        }
+        td {
+            background-color: #3d1f0c;
+        }
+        tr:nth-child(even) td {
+            background-color: #3d1f0c;
+        }
+        tr:hover td {
+            background-color: #3d1f0c;
+        }
+        #predictionChart {
+            width: 100%;
+            height: 250px; /* Fixed height */
+            border: 2px solid #f9605b;
+            border-radius: 8px;
+            background-color: white;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f9605b;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .pagination button:hover {
+            background-color: #f9605b;
+            transform: scale(1.05);
+        }
+        .pagination button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #timeRemaining {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #predictionProbability, #predictedNumber, #predictedPremium {
+            font-size: 18px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .button-group .green {
+            background-color: #28a745;
+            color: white;
+        }
+        .button-group .violet {
+            background-color: #6f42c1;
+            color: white;
+        }
+        .button-group .red {
+            background-color: #f9605b;
+            color: white;
+        }
+        .button-group button:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .card {
+                padding: 15px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+            #timeRemaining {
+                font-size: 20px;
+            }
+            #predictionProbability, #predictedNumber, #predictedPremium {
+                font-size: 16px;
+            }
+            #predictionChart {
+                height: 200px; /* Adjusted height for mobile */
+            }
+        }
+        @media (max-width: 480px) {
+            th, td {
+                font-size: 12px;
+            }
+            #timeRemaining {
+                font-size: 18px;
+            }
+            #predictionProbability, #predictedNumber, #predictedPremium {
+                font-size: 14px;
+            }
+            #predictionChart {
+                height: 180px; /* Further adjustment for very small screens */
+            }
+        }
+        .telegram-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px auto;
+            border-radius: 25px;
+            background-color: #ff4500; /* Example color (OrangeRed) */
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block; /* Ensure block-level button for centering */
+            width: fit-content; /* Fit width to content */
+        }
+        .telegram-button:hover {
+            background-color: #e03d00; /* Darker shade for hover */
+            transform: scale(1.05);
+        }
+        .telegram-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <h1>AYUSH VIP HACK</h1>
+    <div class="card">
+        <h2>Prediction</h2>
+        <p id="predictedNumber">Predicted Number: --</p>
+        <p id="predictedPremium">Previous Premium: --</p>
+    </div>
+    <div class="card">
+        <h2>Timer</h2>
+        <p id="timeRemaining">--:--</p>
+    </div>
+    <!-- Telegram Button -->
+    <div class="card">
+        <h2>Join Us on Telegram</h2>
+        <a href="https://t.me/+JHucnsE8qpZmMjll" class="telegram-button" target="_blank">Join Telegram</a>
+    </div>
+    <div class="card">
+        <h2>Latest Data</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Issue Number</th>
+                    <th>Number</th>
+                    <th>Colour</th>
+                    <th>Premium</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Prediction History</h2>
+        <table id="predictionHistoryTable">
+            <thead>
+                <tr>
+                    <th>Issue Number</th>
+                    <th>Predicted Number</th>
+                    <th>Actual Number</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- History rows will be inserted here -->
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button id="prevPage">Previous</button>
+            <button id="nextPage">Next</button>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Prediction Chart</h2>
+        <canvas id="predictionChart"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
